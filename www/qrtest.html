@@ -31,28 +31,116 @@
     </head>
     <body>
         <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+            <a href="#" class="btn" onclick="scanCode();">Scan Code</a>
+
+            <a href="#" class="btn enc" onclick="encodeText();">Encode Text</a>
+            <a href="#" class="btn enc" onclick="encodeEmail();">Encode Email</a>
+            <a href="#" class="btn enc" onclick="encodePhone();">Encode Phone</a>
+            <a href="#" class="btn enc" onclick="encodeSMS();">Encode SMS</a>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
 
-            cordova.plugins.barcodeScanner.scan(
-                    function (result) {
-                        alert("We got a barcode\n" +
-                        "Result: " + result.text + "\n" +
-                        "Format: " + result.format + "\n" +
-                        "Cancelled: " + result.cancelled);
-                    },
-                    function (error) {
-                        alert("Scanning failed: " + error);
+
+            var scanSuccess = function(result) {
+                var textFormats = "QR_CODE DATA_MATRIX";
+                var productFormats = "UPC_E UPC_A EAN_8 EAN_13";
+
+                if (result.cancelled) {
+                    return;
+                }
+                //alert("Scanned Code: " + result.text + ". Format: " + result.format);
+                if (textFormats.match(result.format)) {
+                    var scanVal = result.text;
+                    if (scanVal.indexOf("http") === 0) {
+                        navigator.notification.confirm(
+                                '(1) Open in Browser\n(2) Cancel',
+                                function (b) {
+                                    if (b === 1) {
+                                        window.plugins.childBrowser.openExternal(scanVal);
+                                    }
+                                },
+                                result.text,
+                                '1, 2'
+                        );
+                    } else {
+                        navigator.notification.alert(
+                                result.text,
+                                function (){},
+                                'Scan Value:',
+                                'Done'
+                        );
                     }
-            );
+                } else if (productFormats.match(result.format)) {
+                    //alert("Found Product Code: " + result.text  + ". Format: " + result.format);
+                    navigator.notification.confirm(
+                            '(1) Look Up Product\n(2) Cancel',
+                            function (b) {
+                                if (b === 1) {
+                                    // This is an example url with query - substitute your own here
+                                    var searchUrl = "http://example.com/urserver/search.pl?q=" + result.text;
+                                    window.plugins.childBrowser.showWebPage(searchUrl);
+                                }
+                            },
+                            result.text,
+                            '1, 2'
+                    );
+                } else {
+                    alert("Scan format : " + result.format +
+                    " not supported. Scan value: " + result.text);
+                }
+            };
+
+            var scanCode = function() {
+                cordova.plugins.barcodeScanner.scan(
+                        scanSuccess,
+                        function(error) {
+                            alert("Scan failed: " + error);
+                        });
+            };
+
+            var encodeText = function() {
+                cordova.plugins.barcodeScanner.encode(
+                        BarcodeScanner.Encode.TEXT_TYPE,
+                        "http://www.mobiledevelopersolutions.com",
+                        function(success) {
+                            alert("Encode success: " + success);
+                        }, function(fail) {
+                            alert("Encoding failed: " + fail);
+                        });
+            };
+
+            var encodeEmail = function() {
+                cordova.plugins.barcodeScanner.encode(
+                        BarcodeScanner.Encode.EMAIL_TYPE,
+                        "a.name@gmail.com", function(success) {
+                            alert("Encode success: " + success);
+                        }, function(fail) {
+                            alert("Encoding failed: " + fail);
+                        });
+            };
+
+            var encodePhone = function() {
+                cordova.plugins.barcodeScanner.encode(
+                        BarcodeScanner.Encode.PHONE_TYPE,
+                        "555-227-5283", function(success) {
+                            alert("Encode success: " + success);
+                        }, function(fail) {
+                            alert("Encoding failed: " + fail);
+                        });
+            };
+
+            var encodeSMS = function() {
+                cordova.plugins.barcodeScanner.encode(
+                        BarcodeScanner.Encode.SMS_TYPE,
+                        "An important message for someone.", function(success) {
+                            alert("Encode success: " + success);
+                        }, function(fail) {
+                            alert("Encoding failed: " + fail);
+                        });
+            };
         </script>
     </body>
 </html>
