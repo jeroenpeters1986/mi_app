@@ -39,6 +39,11 @@
             <a href="#" class="btn enc" onclick="encodePhone();">Encode Phone</a>
             <a href="#" class="btn enc" onclick="encodeSMS();">Encode SMS</a>
         </div>
+
+        <form style="width: 100%; text-align: center;">
+            <input type="button" value="Scan Barcode" onclick="scanner.startScanning()" style="font-size: 40px; width: 300px; height: 50px; margin-top: 100px;"/>
+        </form>
+
         <div id="qresults"></div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
