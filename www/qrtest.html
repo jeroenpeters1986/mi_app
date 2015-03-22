@@ -31,17 +31,20 @@
     </head>
     <body>
         <div class="app">
-            <a href="#" class="btn" onclick="scanCode();">Scan Code</a>
+            <a href="#" style="font-size: xx-large;" class="btn" onclick="scanCode();">Scan Code</a>
+            <br />
 
             <a href="#" class="btn enc" onclick="encodeText();">Encode Text</a>
             <a href="#" class="btn enc" onclick="encodeEmail();">Encode Email</a>
             <a href="#" class="btn enc" onclick="encodePhone();">Encode Phone</a>
             <a href="#" class="btn enc" onclick="encodeSMS();">Encode SMS</a>
         </div>
+        <div id="qresults"></div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
+            app.barcodeScanButtonPressed();
 
 
             var scanSuccess = function(result) {
@@ -52,6 +55,10 @@
                     return;
                 }
                 //alert("Scanned Code: " + result.text + ". Format: " + result.format);
+
+                var resbox = document.getElementById('qresults');
+                resbox.innerHTML = "Scanned Code: " + result.text + ". Format: " + result.format;
+
                 if (textFormats.match(result.format)) {
                     var scanVal = result.text;
                     if (scanVal.indexOf("http") === 0) {
