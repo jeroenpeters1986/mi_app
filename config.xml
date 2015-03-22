@@ -55,8 +55,7 @@
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <!-- <gap:plugin name="org.apache.cordova.vibration" /> -->
 
-    <!-- <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.0.0" /> -->
-    <gap:plugin name="com.manateeworks.barcodescanner" />
+    <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.0.0" />
 
 
     <icon src="icon.png" />
