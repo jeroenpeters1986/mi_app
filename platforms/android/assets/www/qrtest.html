@@ -32,12 +32,6 @@
     <body>
         <div class="app">
             <a href="#" style="font-size: xx-large;" class="btn" onclick="scanCode();">Scan Code</a>
-            <br />
-
-            <a href="#" class="btn enc" onclick="encodeText();">Encode Text</a>
-            <a href="#" class="btn enc" onclick="encodeEmail();">Encode Email</a>
-            <a href="#" class="btn enc" onclick="encodePhone();">Encode Phone</a>
-            <a href="#" class="btn enc" onclick="encodeSMS();">Encode SMS</a>
         </div>
 
         <div id="qresults"></div>
@@ -107,46 +101,6 @@
                         });
             };
 
-            var encodeText = function() {
-                cordova.plugins.barcodeScanner.encode(
-                        BarcodeScanner.Encode.TEXT_TYPE,
-                        "http://www.mobiledevelopersolutions.com",
-                        function(success) {
-                            alert("Encode success: " + success);
-                        }, function(fail) {
-                            alert("Encoding failed: " + fail);
-                        });
-            };
-
-            var encodeEmail = function() {
-                cordova.plugins.barcodeScanner.encode(
-                        BarcodeScanner.Encode.EMAIL_TYPE,
-                        "a.name@gmail.com", function(success) {
-                            alert("Encode success: " + success);
-                        }, function(fail) {
-                            alert("Encoding failed: " + fail);
-                        });
-            };
-
-            var encodePhone = function() {
-                cordova.plugins.barcodeScanner.encode(
-                        BarcodeScanner.Encode.PHONE_TYPE,
-                        "555-227-5283", function(success) {
-                            alert("Encode success: " + success);
-                        }, function(fail) {
-                            alert("Encoding failed: " + fail);
-                        });
-            };
-
-            var encodeSMS = function() {
-                cordova.plugins.barcodeScanner.encode(
-                        BarcodeScanner.Encode.SMS_TYPE,
-                        "An important message for someone.", function(success) {
-                            alert("Encode success: " + success);
-                        }, function(fail) {
-                            alert("Encoding failed: " + fail);
-                        });
-            };
         </script>
     </body>
 </html>
