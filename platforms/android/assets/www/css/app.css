@@ -1,0 +1,8 @@
+.icon-movingindex:before {
+    content: '\00a0 \00a0 ';
+}
+.icon-movingindex {
+    min-width: 24px;
+    min-height: 24px;
+    background: url('../img/movingindex-icon.png') center center no-repeat !important;
+}
