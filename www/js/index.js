@@ -17,9 +17,80 @@
  * under the License.
  */
 var app = {
+
+    'apikey': null,
+
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+    },
+
+    detectApiKey: function() {
+        var miApiKey = localStorage.getItem('mi_apikey');
+        if(miApiKey == undefined)
+        {
+            document.getElementById("apikeyreq").style.display = 'block';
+            document.getElementById("settingsModal").className = 'active';
+            return;
+        }
+        app.loadApiKey();
+    },
+
+    loadApiKey: function() {
+        app.apikey = localStorage.getItem('mi_apikey');
+        app.ajaxSetupApiKeyHeader();
+    },
+
+    saveApiKey: function(mi_apikey) {
+        localStorage.setItem('mi_apikey', mi_apikey);
+        app.loadApiKey();
+    },
+
+    saveSettings: function() {
+        var mi_apikey = $("#settings_apikey").val();
+        if(mi_apikey)
+        {
+            app.saveApiKey(mi_apikey);
+            $("#settingsModal").removeClass('active');
+        }
+        else
+        {
+            $("apikeyreq").html("Please give in a valid key").css('color', 'red');
+        }
+    },
+
+    ajaxSetupApiKeyHeader: function()
+    {
+        $.ajaxSetup({
+            headers: { 'Authorization': 'Token ' + app.apikey }
+        });
+    },
+
+    ajaxRefreshEvents: function()
+    {
+        $.ajax({
+            url: 'http://mi.jeroen.in/api/event/',
+            success: function(response)
+            {
+                $("li.mi_event").remove();
+                $.each(response, function()
+                {
+                    $('#list_of_events').prepend('<li class="table-view-cell mi_event" id="' + this.pk + '">' +
+                    '<a class="navigate-right"><span class="media-object pull-left icon icon-pages"></span><span class="badge">' + this.pk + '</span>' +
+                    this.name + '</a></li>');
+                });
+                $('.mi_event').on('click', function(e){
+
+                });
+            },
+            error: function(xhr, type)
+            {
+                $("li.mi_event").remove();
+                $('#list_of_events').prepend('<li class="table-view-cell">' +
+                '<a class="navigate-right"><span class="badge">' + type + '</span>' +
+                'Could not retrieve list of Events</a></li>');
+            }
+        });
     },
 
     // Bind Event Listeners
@@ -36,17 +107,12 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        app.detectApiKey();
+        app.ajaxRefreshEvents();
     },
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
         console.log('Received Event: ' + id);
     }
 };

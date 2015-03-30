@@ -51,7 +51,7 @@
     </ul>
 </div>
 
-<!-- Compose modal -->
+<!-- Settings modal -->
 <div id="settingsModal" class="modal">
     <header class="bar bar-nav">
         <a class="icon icon-left pull-left" href="#settingsModal"></a>
@@ -61,12 +61,18 @@
     <div class="content">
         <form class="content-padded">
             <h5>API Key</h5>
+            <p id="apikeyreq" style="display: none;">This is your first time of use. Please give in your API key</p>
             <p>Required to use the MovingIndex App</p>
             <input type="text" placeholder="API Key" id="settings_apikey">
-            <a class="btn btn-positive btn-block" id="savesettings" href="#settingsModal">Save settings</a>
+            <a class="btn btn-positive btn-block" id="savesettings">Save settings</a>
         </form>
     </div>
 </div><!-- /.modal -->
+
+
+
+
+
 
 <!-- Compose modal -->
 <div id="scanResultsModal" class="modal">
@@ -86,27 +92,7 @@
 <script type="text/javascript">
     app.initialize();
 
-    $.ajaxSetup({
-        headers: { 'Authorization': 'Token 51e67391c3520a20f73d5e12201691cb67275ae7' }
-    });
 
-    $.ajax({
-        url: 'http://192.168.2.5:8000/api/events/',
-        success: function(response) {
-
-            jQuery.each(response, function()
-            {
-                $('#list_of_events').prepend('<li class="table-view-cell">' +
-                '<a class="navigate-right"><span class="media-object pull-left icon icon-pages"></span><span class="badge">' + this.pk + '</span>' +
-                this.name + '</a></li>');
-            });
-        },
-        error: function(xhr, type) {
-            $('#list_of_events').prepend('<li class="table-view-cell">' +
-            '<a class="navigate-right"><span class="badge">' + type + '</span>' +
-            'Could not retrieve list of Events</a></li>');
-        }
-    });
 
     var scanSuccess = function(result) {
         var textFormats = "QR_CODE DATA_MATRIX";
@@ -163,10 +149,10 @@
 
     var scanCode = function() {
         cordova.plugins.barcodeScanner.scan(
-                scanSuccess,
-                function(error) {
-                    alert("Scan failed: " + error);
-                });
+        scanSuccess,
+        function(error) {
+            alert("Scan failed: " + error);
+        });
     };
 </script>
 

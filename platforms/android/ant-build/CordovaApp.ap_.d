@@ -90,11 +90,12 @@
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/_where-is-www.txt \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/img \
-/home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/notes.html \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/plugins \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/icon.png \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/cordova.js \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/css \
+/home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/index_old.html \
+/home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/movingindex-icon.png \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/fonts \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/spec.html \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/qrtest.html \
@@ -129,6 +130,7 @@
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/res/screen/windows-phone \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/res/screen/webos \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/res/screen/blackberry \
+/home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/res/screen/splash.png \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/res/screen/ios \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/res/screen/tizen \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/res/screen/android \
