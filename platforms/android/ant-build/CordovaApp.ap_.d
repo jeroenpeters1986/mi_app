@@ -94,10 +94,8 @@
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/icon.png \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/cordova.js \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/css \
-/home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/index_old.html \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/movingindex-icon.png \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/fonts \
-/home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/spec.html \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/qrtest.html \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/js \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/index.html \
@@ -120,7 +118,7 @@
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/fonts/ratchicons.svg \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/fonts/ratchicons.eot \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/fonts/ratchicons.woff \
-/home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/js/index.js \
+/home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/js/movingindex.js \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/js/ratchet.min.js \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/js/jquery-2.1.3.min.js \
 /home/jeroen/PhpstormProjects/mi_app/platforms/android/assets/www/js/ratchet.js \

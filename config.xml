@@ -60,7 +60,7 @@
     <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.0.0" />
 
 
-    <icon src="movingindex-icon.png" />
+    <icon src="res/icon/movingindex-icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
     <icon gap:platform="android" gap:qualifier="hdpi" src="www/res/icon/android/icon-72-hdpi.png" />

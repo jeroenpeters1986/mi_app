@@ -1,31 +1,19 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
+/**
+ * MovingIndex Javascript App
  */
 var app = {
 
     'apikey': null,
+    'api_base_url': 'http://mi.jeroen.in/api/',
 
     // Application Constructor
-    initialize: function() {
+    initialize: function()
+    {
         this.bindEvents();
     },
 
-    detectApiKey: function() {
+    detectApiKey: function()
+    {
         var miApiKey = localStorage.getItem('mi_apikey');
         if(miApiKey == undefined)
         {
@@ -36,17 +24,21 @@ var app = {
         app.loadApiKey();
     },
 
-    loadApiKey: function() {
+    loadApiKey: function()
+    {
         app.apikey = localStorage.getItem('mi_apikey');
+        $("#settings_apikey").val(app.apikey);
         app.ajaxSetupApiKeyHeader();
     },
 
-    saveApiKey: function(mi_apikey) {
+    saveApiKey: function(mi_apikey)
+    {
         localStorage.setItem('mi_apikey', mi_apikey);
         app.loadApiKey();
     },
 
-    saveSettings: function() {
+    saveSettings: function()
+    {
         var mi_apikey = $("#settings_apikey").val();
         if(mi_apikey)
         {
@@ -69,7 +61,7 @@ var app = {
     ajaxRefreshEvents: function()
     {
         $.ajax({
-            url: 'http://mi.jeroen.in/api/event/',
+            url: self.api_base_url + 'event/',
             success: function(response)
             {
                 $("li.mi_event").remove();
@@ -93,6 +85,47 @@ var app = {
         });
     },
 
+    ajaxGetEventContainer: function(event_id, container_id)
+    {
+        $.ajax({
+            url: self.api_base_url + 'event/' + event_id + '/container/' + container_id + '/content/',
+            success: function(response)
+            {
+                $("li.mi_event").remove();
+                $.each(response, function()
+                {
+                    $('#list_of_events').prepend('<li class="table-view-cell mi_event" id="' + this.pk + '">' +
+                    '<a class="navigate-right"><span class="media-object pull-left icon icon-pages"></span><span class="badge">' + this.pk + '</span>' +
+                    this.name + '</a></li>');
+                });
+                $('.mi_event').on('click', function(e){
+
+                });
+            },
+            error: function(xhr, type)
+            {
+                $("li.mi_event").remove();
+                $('#list_of_events').prepend('<li class="table-view-cell">' +
+                '<a class="navigate-right"><span class="badge">' + type + '</span>' +
+                'Could not retrieve list of Events</a></li>');
+            }
+        });
+    },
+
+    scanCode: function(callback)
+    {
+        cordova.plugins.barcodeScanner.scan(
+            callback,
+            function(error) {
+                alert("Scan failed: " + error);
+            });
+    },
+
+    bier: function(henk)
+    {
+        console.log(henk);
+    },
+
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
@@ -109,6 +142,13 @@ var app = {
         app.receivedEvent('deviceready');
         app.detectApiKey();
         app.ajaxRefreshEvents();
+
+        // Bind andere meuk
+        $('#scan_option').on('click', function(e)
+        {
+            app.scanCode(app.bier);
+        });
+        $('#savesettings').on('click', app.saveSettings);
     },
 
     // Update DOM on a Received Event
@@ -122,13 +162,15 @@ scanner = cordova.require("cordova/plugin/BarcodeScanner");
 function scanQRCode()
 {
     cordova.plugins.barcodeScanner.scan(
-        function (result) {
+        function (result)
+        {
             alert("We got a barcode\n" +
             "Result: " + result.text + "\n" +
             "Format: " + result.format + "\n" +
             "Cancelled: " + result.cancelled);
         },
-        function (error) {
+        function (error)
+        {
             alert("Scanning failed: " + error);
         }
     );

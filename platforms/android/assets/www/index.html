@@ -7,13 +7,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!-- Roboto -->
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700">
 
     <link rel="stylesheet" href="css/ratchet.min.css">
     <link rel="stylesheet" href="css/ratchet-theme-android.min.css">
     <link rel="stylesheet" href="css/app.css">
-
 
     <script src="js/ratchet.min.js"></script>
     <script src="js/jquery-2.1.3.min.js"></script>
@@ -33,7 +31,7 @@
 
     <ul class="table-view" id="list_of_events">
         <li class="table-view-cell media" id="scan_option">
-            <a class="navigate-right"  onclick="scanCode();" data-ignore="push">
+            <a class="navigate-right" href="#" data-ignore="push">
                 <span class="media-object pull-left icon icon-code"></span>
                 <div class="media-body">
                     Scan QR code
@@ -88,10 +86,9 @@
     </div>
 </div><!-- /.modal -->
 
-<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/movingindex.js"></script>
 <script type="text/javascript">
     app.initialize();
-
 
 
     var scanSuccess = function(result) {
@@ -147,7 +144,8 @@
         }
     };
 
-    var scanCode = function() {
+    var scanCode = function()
+    {
         cordova.plugins.barcodeScanner.scan(
         scanSuccess,
         function(error) {
