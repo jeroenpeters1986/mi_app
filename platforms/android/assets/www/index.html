@@ -143,15 +143,6 @@
             " not supported. Scan value: " + result.text);
         }
     };
-
-    var scanCode = function()
-    {
-        cordova.plugins.barcodeScanner.scan(
-        scanSuccess,
-        function(error) {
-            alert("Scan failed: " + error);
-        });
-    };
 </script>
 
 </body>
