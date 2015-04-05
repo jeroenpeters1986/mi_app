@@ -9,11 +9,13 @@ var app = {
     // Application Constructor
     initialize: function()
     {
+        console.log("Initializing app");
         this.bindEvents();
     },
 
     detectApiKey: function()
     {
+        console.log("Detecting API Key");
         var miApiKey = localStorage.getItem('mi_apikey');
         if(miApiKey == undefined)
         {
@@ -27,12 +29,14 @@ var app = {
     loadApiKey: function()
     {
         app.apikey = localStorage.getItem('mi_apikey');
+        console.log("Got apikey from loadApiKey: " + app.apikey);
         $("#settings_apikey").val(app.apikey);
         app.ajaxSetupApiKeyHeader();
     },
 
     saveApiKey: function(mi_apikey)
     {
+        console.log("Saving API key: " + mi_apikey);
         localStorage.setItem('mi_apikey', mi_apikey);
         app.loadApiKey();
     },
@@ -40,10 +44,12 @@ var app = {
     saveSettings: function()
     {
         var mi_apikey = $("#settings_apikey").val();
+        console.log("Received key: " + mi_apikey);
         if(mi_apikey)
         {
             app.saveApiKey(mi_apikey);
             $("#settingsModal").removeClass('active');
+            console.log("Remove setting modal");
         }
         else
         {
@@ -56,6 +62,7 @@ var app = {
         $.ajaxSetup({
             headers: { 'Authorization': 'Token ' + app.apikey }
         });
+        console.log("Just setup AJAX headers with token: " + app.apikey);
     },
 
     ajaxRefreshEvents: function()
@@ -70,6 +77,7 @@ var app = {
                     $('#list_of_events').prepend('<li class="table-view-cell mi_event" id="' + this.pk + '">' +
                     '<a class="navigate-right"><span class="media-object pull-left icon icon-pages"></span><span class="badge">' + this.pk + '</span>' +
                     this.name + '</a></li>');
+                    console.log("Retreived and added event: " + this.name);
                 });
                 $('.mi_event').on('click', function(e){
 
@@ -114,6 +122,7 @@ var app = {
 
     scanCode: function(callback)
     {
+        console.log("Called Scancode code");
         cordova.plugins.barcodeScanner.scan(
             callback,
             function(error) {
@@ -139,6 +148,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+        console.log("DeviceReady");
         app.receivedEvent('deviceready');
         app.detectApiKey();
         app.ajaxRefreshEvents();
