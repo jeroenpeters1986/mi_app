@@ -61,7 +61,7 @@ var app = {
     ajaxRefreshEvents: function()
     {
         $.ajax({
-            url: self.api_base_url + 'event/',
+            url: app.api_base_url + 'event/',
             success: function(response)
             {
                 $("li.mi_event").remove();
@@ -88,7 +88,7 @@ var app = {
     ajaxGetEventContainer: function(event_id, container_id)
     {
         $.ajax({
-            url: self.api_base_url + 'event/' + event_id + '/container/' + container_id + '/content/',
+            url: app.api_base_url + 'event/' + event_id + '/container/' + container_id + '/content/',
             success: function(response)
             {
                 $("li.mi_event").remove();
