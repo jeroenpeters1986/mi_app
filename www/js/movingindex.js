@@ -50,6 +50,56 @@ var app = {
             app.saveApiKey(mi_apikey);
             $("#settingsModal").removeClass('active');
             console.log("Remove setting modal");
+
+            console.log("Calling refresh for event list");
+            app.ajaxRefreshEvents();
+        }
+        else
+        {
+            $("apikeyreq").html("Please give in a valid key").css('color', 'red');
+        }
+    },
+
+    getContainersForEvent: function(event_id)
+    {
+        $.ajax({
+            url: app.api_base_url + 'event/' + event_id + '/container/',
+            success: function(response)
+            {
+                $("#eventContainerModal").addClass("active");
+                $.each(response, function()
+                {
+                    $('#containerlist').children().remove();
+                    $('#containerlist').append('<li class="table-view-cell media" id="container_' + this.pk + '">' +
+                        '<a class="navigate-right"><img class="media-object pull-left" src="http://placehold.it/42x42">' +
+                        '<div class="media-body">' + this.title + '<br />' + this.event +
+                        '<p>Lorem ipsum dolor sit amet</p></div></a></li>');
+                    console.log("Retreived and added containers for event: " + this.event);
+                });
+            },
+            error: function(xhr, type)
+            {
+                $("#eventContainerModal").addClass("active");
+                $('#containerlist').children().remove();
+                $('#containerlist').prepend('<li class="table-view-cell">' +
+                '<a class="navigate-right"><span class="badge">' + type + '</span>' +
+                'Could not retrieve list of Containers</a></li>');
+            }
+        });
+    },
+
+    createContainer: function()
+    {
+        var mi_apikey = $("#settings_apikey").val();
+        console.log("Received key: " + mi_apikey);
+        if(mi_apikey)
+        {
+            app.saveApiKey(mi_apikey);
+            $("#settingsModal").removeClass('active');
+            console.log("Remove setting modal");
+
+            console.log("Calling refresh for event list");
+            app.ajaxRefreshEvents();
         }
         else
         {
@@ -74,13 +124,14 @@ var app = {
                 $("li.mi_event").remove();
                 $.each(response, function()
                 {
-                    $('#list_of_events').prepend('<li class="table-view-cell mi_event" id="' + this.pk + '">' +
+                    $('#list_of_events').prepend('<li class="table-view-cell mi_event" data-event-id="' + this.pk + '">' +
                     '<a class="navigate-right"><span class="media-object pull-left icon icon-pages"></span><span class="badge">' + this.pk + '</span>' +
                     this.name + '</a></li>');
                     console.log("Retreived and added event: " + this.name);
                 });
                 $('.mi_event').on('click', function(e){
-
+                    event_id = $(this).attr('data-event-id');
+                    app.getContainersForEvent(event_id);
                 });
             },
             error: function(xhr, type)
@@ -139,7 +190,8 @@ var app = {
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
+    bindEvents: function()
+    {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
 
@@ -147,11 +199,14 @@ var app = {
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
+    onDeviceReady: function()
+    {
         console.log("DeviceReady");
         app.receivedEvent('deviceready');
         app.detectApiKey();
         app.ajaxRefreshEvents();
+
+        scanner = cordova.require("cordova/plugin/BarcodeScanner");
 
         // Bind andere meuk
         $('#scan_option').on('click', function(e)
@@ -162,26 +217,8 @@ var app = {
     },
 
     // Update DOM on a Received Event
-    receivedEvent: function(id) {
+    receivedEvent: function(id)
+    {
         console.log('Received Event: ' + id);
     }
 };
-
-scanner = cordova.require("cordova/plugin/BarcodeScanner");
-
-function scanQRCode()
-{
-    cordova.plugins.barcodeScanner.scan(
-        function (result)
-        {
-            alert("We got a barcode\n" +
-            "Result: " + result.text + "\n" +
-            "Format: " + result.format + "\n" +
-            "Cancelled: " + result.cancelled);
-        },
-        function (error)
-        {
-            alert("Scanning failed: " + error);
-        }
-    );
-}

@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700">
 
     <link rel="stylesheet" href="css/ratchet.min.css">
     <link rel="stylesheet" href="css/ratchet-theme-android.min.css">
@@ -22,7 +22,6 @@
 
 <!-- Main view -->
 <header class="bar bar-nav">
-    <a class="icon icon-compose pull-right" href="new.html"></a>
     <h1 class="title">
         <span class="icon icon-movingindex"></span>
         MovingIndex
@@ -53,6 +52,26 @@
 
 
 
+<!-- List of Containers for event -->
+<div id="eventContainerModal" class="modal">
+    <header class="bar bar-nav">
+        <a class="icon icon-left pull-left" href="#eventContainerModal"></a>
+        <a class="icon icon-compose pull-right" href="#createContainerModal"></a>
+        <h1 class="title">
+            <span class="icon icon-movingindex"></span>
+            MovingIndex
+        </h1>
+    </header>
+
+    <div class="content">
+
+        <ul class="table-view" id="containerlist">
+
+        </ul>
+    </div>
+</div>
+
+
 
 
 <!-- Settings modal -->
@@ -77,7 +96,7 @@
 
 
 
-<!-- Compose modal -->
+<!-- Scan Results modal -->
 <div id="scanResultsModal" class="modal">
     <header class="bar bar-nav">
         <a class="icon icon-left pull-left" href="#scanResultsModal"></a>
@@ -90,6 +109,24 @@
         </form>
     </div>
 </div>
+
+
+
+
+<!-- Compose modal -->
+<div id="createContainerModal" class="modal">
+    <header class="bar bar-nav">
+        <a class="icon icon-left pull-left" href="#createContainerModal"></a>
+        <h1 class="title">New Container</h1>
+    </header>
+
+    <div class="content">
+        <form class="content-padded">
+            <input type="text" placeholder="Location" name="location">
+            <a class="btn btn-positive btn-block" href="#createContainerModal">Create container</a>
+        </form>
+    </div>
+</div><!-- /.modal -->
 
 
 
